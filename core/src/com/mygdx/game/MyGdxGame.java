@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	float time;
 	
 	@Override
 	public void create () {
@@ -17,10 +20,22 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
+		ScreenUtils.clear(1, 1, 1, 1);
+
+		Gdx.graphics.setTitle("Hello!");
+
+		float x = Gdx.input.getX();
+		float y = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) Gdx.app.exit();
+
+		time += Gdx.graphics.getDeltaTime();
+		if(time >= 60) Gdx.app.exit();
+
 		batch.begin();
-		batch.draw(img, 0, 0);
+		batch.draw(img, x, y, 0, 0, img.getWidth(), img.getHeight(), 1, 1, 0,0, 0, img.getWidth(), img.getHeight(), false, false);
 		batch.end();
+
 	}
 	
 	@Override
